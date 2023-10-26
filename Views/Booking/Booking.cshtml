@@ -233,7 +233,7 @@ let servicesList = [
                   }, 3000);
               }
      function fetchTimeSlots(selectedDate) {
-         let apiUrl = 'https://0.0.0.0:7063/api/slots/' + selectedDate;
+         let apiUrl = 'https://ist-wst-group-26.azurewebsites.net/api/slots/' + selectedDate;
           fetch(apiUrl)
               .then(response => response.json())
               .then(data => {
@@ -320,7 +320,7 @@ let servicesList = [
                                                 "timeSlotId":slotId
                                             }
                                                console.log(patientViewModel)
-                                               fetch('https://0.0.0.0:7063/api/booking', {
+                                               fetch('https://ist-wst-group-26.azurewebsites.net/api/booking', {
                                                    method: 'POST',
                                                    headers: {
                                                        'Content-Type': 'application/json',
