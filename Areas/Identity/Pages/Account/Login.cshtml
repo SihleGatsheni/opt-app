@@ -1,0 +1,49 @@
+﻿@page
+@model LoginModel
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<div class="row" style="margin-left: 400px" >
+    <div class="col-md-5">
+        <section class="login-section">
+            <form id="account" method="post" class="login-form">
+                <h2>Log In with Your Local Account</h2>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input asp-for="Input.Email" class="form-control" id="email" autocomplete="username" aria-required="true" />
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input asp-for="Input.Password" class="form-control" id="password" autocomplete="current-password" aria-required="true" />
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group form-check">
+                    <input class="form-check-input" asp-for="Input.RememberMe" id="rememberMe" />
+                    <label class="form-check-label" for="rememberMe">
+                        Remember me
+                    </label>
+                </div>
+                <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log In</button>
+                <p>
+                    <a id="forgot-password" asp-page="./ForgotPassword" class="forgot-password-link">Forgot your password?</a>
+                </p>
+                <p>
+                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="register-link">Register as a new user</a>
+                </p>
+                <p>
+                    <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="resend-confirmation-link">Resend email confirmation</a>
+                </p>
+            </form>
+        </section>
+    </div>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

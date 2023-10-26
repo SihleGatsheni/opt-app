@@ -1,0 +1,152 @@
+﻿@{
+    ViewData["Title"] = "Optometrist Booking";
+}
+<div style="text-align: center;" class="hero-image">
+    <img  src="images/Slide1.JPG" alt="Your Image"  />
+</div>
+<div class="welcome-section">
+    <h1>Welcome to <span class="clinic-name">Samnath Optometrist Clinic</span></h1>
+    <p>Your Vision. Our Priority.</p>
+    <a href="#services" class="cta-button">Schedule an Appointment</a>
+</div>
+
+<section id="about-us">
+    <div class="container">
+        <h2>About Us</h2>
+        <p>Learn about our experienced optometrist and dedicated team.</p>
+        <!-- Add optometrist and team information here -->
+    </div>
+</section>
+
+  <!-- Services Offered Section -->
+<section id="services">
+    <div class="container">
+        <h2>Our Services</h2>
+        <p>Discover the range of eye care services we provide.</p>
+        <ul class="service-list">
+            <li>
+                <img src="images/eye-test.jpg" alt="Service 1">
+                <h3>Eye Test/Exam</h3>
+                <p>Eye Examination.</p>
+            </li>
+            <li>
+                <img src="images/consult.jpg" alt="Service 2">
+                <h3>Consultation</h3>
+                <p>Consultation.</p>
+            </li>
+            <!-- Add more service items as needed -->
+        </ul>
+    </div>
+</section>
+
+  <!-- Service Highlights -->
+<section id="service-highlights">
+    <div class="container">
+        <h2>Service Highlights</h2>
+        <ul class="highlight-list">
+            <li>
+                <img src="images/vision.png" alt="Highlight 1">
+                <h3>Vision Correction</h3>
+                <p>Experience clear and improved vision with our advanced solutions.</p>
+            </li>
+            <li>
+                <img src="images/exam.jpg" alt="Highlight 2">
+                <h3>Comprehensive Eye Exams</h3>
+                <p>We offer thorough eye examinations to maintain your eye health.</p>
+            </li>
+            <!-- Add more service highlights as needed -->
+        </ul>
+    </div>
+</section>
+
+<section id="featured-products">
+    <div class="container">
+        <h2>Featured Products</h2>
+        <ul class="product-list">
+            <li>
+                <img src="images/glasses.jpg" alt="Product 1">
+                <h3>Eyeglasses</h3>
+                <p>Choose from a stylish collection of eyeglasses for all occasions.</p>
+            </li>
+            <li>
+                <img src="images/contact.jpg" alt="Product 2">
+                <h3>Contact Lenses</h3>
+                <p>Experience comfort and clarity with our contact lenses.</p>
+            </li>
+            <!-- Add more featured products as needed -->
+        </ul>
+    </div>
+</section>
+
+    <!-- Pricing and Insurance Information -->
+    <section id="pricing-and-insurance">
+        <div class="container">
+            <h2>Pricing and Insurance</h2>
+            <p>Find information about our pricing and accepted insurance plans.</p>
+            <!-- Add pricing and insurance details here -->
+        </div>
+    </section>
+
+    <!-- Appointment Booking -->
+    <section id="appointment-booking">
+        <div class="container">
+            <h2>Schedule an Appointment</h2>
+            <p>Book an appointment with us for quality eye care.</p>
+           <a href="@Url.Action("Booking","Booking")" class="cta-button">Schedule an Appointment</a>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section id="contact">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us for any questions or concerns.</p>
+            <p>Mobile: 072 951 2752</p>
+            <p>Tel: (031) 262 1385</p>
+            <p>Address : 610 Mountbatten Drive Reservoir Hills</p>
+            <p>Email: samoptom@telkomsa.net</p>
+        </div>
+    </section>
+
+    <!-- Location and Directions -->
+    <section id="location">
+        <div class="container">
+            <h2>Our Location</h2>
+            <p>Visit us at our convenient location. Get directions below.</p>
+            <!-- Add Google Maps integration or address and directions here -->
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <!-- Add frequently asked questions and answers here -->
+        </div>
+    </section>
+
+<div class="container">
+    <div class="chatbox">
+        <div class="chatbox__support">
+            <div class="chatbox__header">
+                <div class="chatbox__image--header">
+                    <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                </div>
+                <div class="chatbox__content--header">
+                    <h4 class="chatbox__heading--header">OptBot Your Eye Assistant</h4>
+                    <p class="chatbox__description--header">Hi. My name is OptBot. How can I help you?</p>
+                </div>
+            </div>
+            <div class="chatbox__messages">
+                <div></div>
+            </div>
+            <div class="chatbox__footer">
+                <input type="text" placeholder="Write a message...">
+                <button class="chatbox__send--footer send__button">Send</button>
+            </div>
+        </div>
+        <div class="chatbox__button">
+            <button><img src="./images/chatbox-icon.svg" alt=""/></button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+﻿@page
+@model IndexModel
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="user-info-h">
+                <h2>User Information</h2>
+                <p>Name: @Model.ProfileViewModel.User!.Name</p>
+                <p>Name: @Model.ProfileViewModel.User.Surname</p>
+                <p>Email: @Model.ProfileViewModel.User!.Email</p>
+                <p>Name: @Model.ProfileViewModel.User.Cellphone</p>
+                <p>DOB: @Model.ProfileViewModel.User.DoB</p>
+                <p>Name: @Model.ProfileViewModel.User.Address</p>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="user-info-h">
+                <h2>Booking History</h2>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>BookingId</th>
+                        <th>Date</th>
+                        <th>Services</th>
+                        <th>TotalAmount</th>
+                        <th>Status</th>
+                        <th>TimeSlot</th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var booking in Model.ProfileViewModel.BookingHistory!)
+                    {
+                        <tr>
+                            <td>@booking.BookingId</td>
+                            <td>@booking.Date</td>
+                            <td>@booking.Services.Split(',')[0]...</td>
+                            <td>@booking.TotalAmount</td>
+                            <td>@booking.Status</td>
+                            <td>@booking.TimeSlot</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

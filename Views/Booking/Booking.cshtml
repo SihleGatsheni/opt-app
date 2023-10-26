@@ -1,0 +1,407 @@
+@model OptiApp.ViewModel.AppointmentViewModel
+
+@{
+    ViewBag.Title = "Book an Appointment";
+}
+<style>
+        /* CSS styles here */
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 2fr;
+            gap: 20px;
+        }
+
+        .grid-date-picker {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .grid-time-slots {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .availability-status {
+            display: grid;
+            grid-template-rows: 1fr 1fr;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+
+        .status {
+            padding: 5px;
+            font-weight: bold;
+            background-color: #e5e5e5;
+        }
+
+        .available {
+            background-color: #a2fda2; /* Green */
+        }
+
+        .unavailable {
+            background-color: #cccccc; /* Gray */
+            cursor: not-allowed;
+        }
+
+        .date-picker {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .datepicker {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        .time-slots {
+            border: 1px solid #ccc;
+            padding: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .time-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Rectangular grid with 3 columns */
+            gap: 10px;
+        }
+
+        .slot {
+            background-color: #a2fda2; /* Green */
+            text-align: center;
+            padding: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+         .card {
+            width:800px ;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 5px;
+        }
+        .in-progress {
+            background-color: orange;
+        }
+        
+        .unavailable-slot {
+            background-color: #ccc; /* Gray */
+            cursor: not-allowed;
+        }
+
+        #book-appointment {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        #toast {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 2px;
+            padding: 8px;
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1;
+            transition: visibility 0.3s linear, opacity 0.3s linear;
+            opacity: 0;
+        }
+
+        #toast.show {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
+
+<div class="container">
+    <div class="grid-date-picker">
+        <div class="date-picker">
+            <h3>Select Date</h3>
+            <input type="date" asp-for="SelectedDate" min=@DateTime.UtcNow.ToString("yyyy-MM-dd") value=@DateTime.UtcNow.ToString("yyyy-MM-dd") class="datepicker"/>
+        </div>
+    </div>
+    <div class="grid-time-slots">
+        <div class="time-slots">
+            <h3 class="text-center" id ="selectedDateTimeId"></h3>
+            <div class="time-grid">
+            </div>
+        </div>
+    </div>
+    <div class="grid-user-info">
+        <div class="card">
+              <div class="service-selection">
+                        <select id="service-list">
+                            <option value="" disabled selected>Select a Service</option>
+                            <option value="Eye Examination|350">Eye Examination - R350</option>
+                            <option value="Single Vision|690">Single Vision - R690</option>
+                            <option value="Bifocal|1060">Bifocal - R1060</option>
+                            <option value="MultiFocal|1390">MultiFocal - R1390</option>
+                            <option value="Consultation|0">Consultation - R0</option>
+                        </select>
+                        <button class="btn btn-primary" id="add-service">+</button>
+                    </div>
+            <div class="user-info">
+                <label>SelectedServices</label>
+                <div class="selected-services">
+                    <div class="tag-ui" id="selected-services-display" style="margin-bottom: 10px"></div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(o => o.PatientId)
+                        <input type="text" id ="patientId" asp-for="PatientId" disabled=""/>
+                    </div>
+                    <div class="col-md-6">
+                        @Html.LabelFor(o => o.Email)
+                        <input type="text" asp-for="Email" disabled=""/>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        @Html.LabelFor(o => o.Address)
+                        <input type="text" asp-for="Address" disabled/>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Date</label>
+                        <input type="text" id="SelectedDateId" disabled/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Time</label>
+                        <input id="SelectedTimeId" type="text" disabled/>
+                    </div>
+                    <div class="col-md-6">
+                        <p style="margin-top: 20px">Total: R<span id="total-price">0</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<button id="book-appointment">Book Appointment</button>
+<div id="toast" class="toast"></div>
+<div class="dialog" id="dialog">
+    <div class="dialog-content">
+        <h2>Booking Confirmed</h2>
+        <p>Your booking has been successfully confirmed and an Email as been sent thank you!.</p>
+        <button id="closeDialog">Close</button>
+    </div>
+</div>
+
+
+<script>
+let servicesList = [
+    {"service":"Eye Examination", "price":350},
+    {"service":"Single Vision", "price":690},
+    {"service":"Bifocal", "price":1060},
+    {"service":"MultiFocal", "price":1390},
+    {"service":"Consultation", "price":0}
+]
+     const serviceList = document.getElementById('service-list');
+     const addServiceButton = document.getElementById('add-service');
+     const selectedServicesDisplay = document.getElementById('selected-services-display');
+     const totalPrice = document.getElementById('total-price');
+     const dialog = document.getElementById("dialog");
+     const closeDialogButton = document.getElementById("closeDialog");
+     document.addEventListener('DOMContentLoaded', function () {
+              let selectedDate = new Date().toISOString().slice(0, 10); // Current date in 'YYYY-MM-DD' format
+               document.getElementById('selectedDateTimeId').innerText = selectedDate
+               document.getElementById("SelectedDateId").value = selectedDate
+              fetchTimeSlots(selectedDate);
+           });
+     function showToast(message) {
+                  var toast = document.getElementById('toast');
+                  toast.innerText = message;
+                  toast.className = 'toast show';
+                  setTimeout(function () {
+                      toast.className = 'toast';
+                  }, 3000);
+              }
+     function fetchTimeSlots(selectedDate) {
+         let apiUrl = 'https://localhost:7063/api/slots/' + selectedDate;
+          fetch(apiUrl)
+              .then(response => response.json())
+              .then(data => {
+                 drawTimeSlots(data)
+              })
+              .catch(error => console.error('Error fetching time slots: ' + error));
+      }
+     function drawTimeSlots(data) {
+         let timeGrid = document.querySelector('.time-grid');
+          // Clear any existing slots
+          timeGrid.innerHTML = '';
+          if (data.length ===0)
+          {
+               let message = document.createElement('div');
+                      message.classList.add('no-slots-message');
+                      message.innerText = 'No slots available';
+                      timeGrid.appendChild(message);
+          }else
+          {
+          data.forEach(slotData => {
+            if (!slotData.isTaken)
+            {
+                     let slot = document.createElement('div');
+                     slot.classList.add('slot');
+                     slot.id = slotData.id
+                     let startTimeParts = slotData.startTime.toString().split(':');
+                     let endTimeParts = slotData.endTime.toString().split(':')
+                     let formattedStartTime =  startTimeParts[0] + ':' + startTimeParts[1];
+                     let formattedEndTime = endTimeParts[0] + ':' + endTimeParts[1];      
+                     slot.innerText = formattedStartTime + ' - ' + formattedEndTime;
+                     timeGrid.appendChild(slot);  
+            }
+       });}
+      }
+     function handleTimeSlotClick(slot) {
+                         if (!slot.classList.contains('unavailable')) {
+                             // Remove "in-progress" class from any other selected slot
+                             let selectedSlot = document.querySelector('.slot.in-progress');
+                             if (selectedSlot) {
+                                 selectedSlot.classList.remove('in-progress');
+                                 selectedSlot.classList.add('available');
+                             }
+                     
+                             // Add "in-progress" class to the clicked slot
+                             slot.classList.add('in-progress');
+                             slot.classList.remove('available');
+                     
+                             // Update the SelectedTimeId element with the value of the selected slot
+                             let selectedTimeId = document.getElementById('SelectedTimeId');
+                             selectedTimeId.value = slot.innerText;
+                         }
+                     }
+        
+     document.querySelector('.datepicker').addEventListener('change', function() {
+              let selectedDate = this.value;
+              document.getElementById('SelectedDateId').value = selectedDate
+              document.getElementById('selectedDateTimeId').value = selectedDate
+              fetchTimeSlots(selectedDate);
+      });
+              
+     document.querySelector('.time-grid').addEventListener('click', function (event){
+           let clickedElement = event.target;
+           if (clickedElement.classList.contains('slot')) {
+                  handleTimeSlotClick(clickedElement)
+           }
+      })
+              
+     document.getElementById('book-appointment').addEventListener('click', function () {
+                  let selectedSlot = document.querySelector('.slot.in-progress');
+                  let total = parseFloat(totalPrice.innerText)
+                  if (selectedSlot) {
+                      // Get the ID of the selected slot
+                     if (total > 0)
+                     {
+                          let patientId = document.getElementById("patientId").value
+                          let chosenDate = document.getElementById("SelectedDateId").value
+                          let slotId = selectedSlot.id;
+                          let patientViewModel = {
+                                                "patientId":patientId,
+                                                "date": chosenDate,
+                                                "services": selectedServicesTags.toString(),
+                                                "totalAmount":total,
+                                                "status":"",
+                                                "timeSlotId":slotId
+                                            }
+                                               console.log(patientViewModel)
+                                               fetch('https://localhost:7063/api/booking', {
+                                                   method: 'POST',
+                                                   headers: {
+                                                       'Content-Type': 'application/json',
+                                                   },
+                                                   body: JSON.stringify(patientViewModel)
+                                               })
+                                                   .then(response => {
+                                                       if (response.ok) {
+                                                          dialog.style.display = "block";
+                                                       } else {
+                                                           // Handle any errors
+                                                           console.log(response.json())
+                                                           showToast('Error booking appointment.');
+                                                       }
+                                                   })
+                                                   .catch(error => {
+                                                       console.error('Error updating slot status: ' + error);
+                                                   });
+                                              
+                         }else{
+                         showToast('Please select a Service before booking .');
+                         }
+                  } else {
+                      showToast('Please select a time slot before booking .');
+                  }
+              });
+     closeDialogButton.addEventListener("click", () => {
+              dialog.style.display = "none";
+              window.location.reload()
+          });
+     const selectedServices = [];
+     const selectedServicesTags = []
+     
+     // Event listener for adding a service
+     addServiceButton.addEventListener('click', function () {
+         const selectedOption = serviceList.options[serviceList.selectedIndex];
+         if (selectedOption.value !== '') {
+             const [serviceName, price] = selectedOption.value.split('|');
+             if (!isServiceSelected(serviceName))
+             {
+                 selectedServicesTags.push(serviceName)
+                  selectedServices.push({ name: serviceName, price: parseFloat(price) });
+                  updateServiceList();
+             }else {
+                 showToast("Service Already added for booking choose another!")
+             }
+         }
+     });
+     
+     // Update the list of selected services and calculate the total
+     function updateServiceList() {
+        selectedServicesDisplay.innerHTML = '';
+           let total = 0;
+        
+           selectedServices.forEach((service, index) => {
+               const tag = document.createElement('div');
+               tag.className = 'tag';
+        
+               // Create a delete button (X) for each tag
+               const deleteButton = document.createElement('button');
+               deleteButton.textContent = 'X';
+               deleteButton.className = 'delete-tag';
+               deleteButton.addEventListener('click', function () {
+                   // Remove the selected service and update the total
+                   selectedServices.splice(index, 1);
+                   updateServiceList();
+               });
+        
+               tag.innerHTML = `
+                   <span class="tag-name">${service.name}</span>
+               `;
+        
+               tag.appendChild(deleteButton);
+               selectedServicesDisplay.appendChild(tag);
+        
+               total += service.price;
+           });
+        
+           totalPrice.textContent = total.toFixed(2);
+     }
+     function isServiceSelected(serviceName) {
+         return selectedServices.some(service => service.name === serviceName);
+     }
+    </script>
