@@ -233,7 +233,7 @@ let servicesList = [
                   }, 3000);
               }
      function fetchTimeSlots(selectedDate) {
-         let apiUrl = 'https://localhost:7063/api/slots/' + selectedDate;
+         let apiUrl = 'https://0.0.0.0:7063/api/slots/' + selectedDate;
           fetch(apiUrl)
               .then(response => response.json())
               .then(data => {
@@ -320,7 +320,7 @@ let servicesList = [
                                                 "timeSlotId":slotId
                                             }
                                                console.log(patientViewModel)
-                                               fetch('https://localhost:7063/api/booking', {
+                                               fetch('https://0.0.0.0:7063/api/booking', {
                                                    method: 'POST',
                                                    headers: {
                                                        'Content-Type': 'application/json',
