@@ -290,7 +290,7 @@ let servicesList = [
      document.querySelector('.datepicker').addEventListener('change', function() {
               let selectedDate = this.value;
               document.getElementById('SelectedDateId').value = selectedDate
-              document.getElementById('selectedDateTimeId').value = selectedDate
+              document.getElementById('selectedDateTimeId').innerHTML = selectedDate
               fetchTimeSlots(selectedDate);
       });
               
