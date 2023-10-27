@@ -46,7 +46,7 @@
         let msg1 = { name: "User", message: text1 }
         this.messages.push(msg1);
 
-       await fetch('http://localhost:5000/chatbot', {
+       await fetch('https://opti-chat-app.onrender.com/chatbot', {
             method: 'POST',
             body: JSON.stringify({ query: text1 }),
             mode: 'cors',
