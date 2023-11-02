@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using OptiApp.Models;
+using OptiApp.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,8 +12,13 @@ builder.Services.AddDbContextPool<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
+await builder.Services.CreateRolesAndDefaultAdmin(builder.Configuration["DefaultAdmin:Username"], builder.Configuration["DefaultAdmin:Password"]);
+
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
+builder.Services.AddRazorPages();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -41,4 +48,4 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 app.MapRazorPages();
 
-app.Run();
+await app.RunAsync();

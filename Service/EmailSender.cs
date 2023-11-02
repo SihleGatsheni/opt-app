@@ -1,17 +1,25 @@
 using MailKit.Net.Smtp;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using MimeKit;
 using OptiApp.Models;
 
 namespace OptiApp.Service;
 
-public class EmailSender
+public class EmailSender:IEmailSender
 {
     private readonly IConfiguration _configuration;
     public EmailSender(IConfiguration configuration)
     {
         _configuration = configuration; 
     }
-    public async Task SendEmailAsync(EmailRequestDto req){
+    public async Task SendEmailAsync(string to, string subject, string htmlMessage )
+    {
+        var req = new EmailRequestDto()
+        {
+            To = to,
+            Subject = subject,
+            Body = htmlMessage
+        };
         var email = new MimeMessage();
         email.From.Add(MailboxAddress.Parse("indlovutech@gmail.com"));
         email.To.Add(MailboxAddress.Parse(req.To));
