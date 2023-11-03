@@ -63,6 +63,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Admin/CreateOptometristAccount.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vQ3JlYXRlT3B0b21ldHJpc3RBY2NvdW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Auth/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQXV0aC9DcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -101,6 +109,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Home/SingleVisionService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9TaW5nbGVWaXNpb25TZXJ2aWNlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Opt/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvT3B0L0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Shared/Error.cshtml]

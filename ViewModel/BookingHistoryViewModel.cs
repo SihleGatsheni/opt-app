@@ -8,4 +8,6 @@ public class BookingHistoryViewModel
     public decimal TotalAmount { get; set; }
     public string? Status { get; set; }
     public string? TimeSlot { get; set; }
+    public string? PrescriptionNote { get; set; }
+    public bool IsPaid { get; set; }
 }

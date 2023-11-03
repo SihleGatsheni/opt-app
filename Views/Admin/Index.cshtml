@@ -1,0 +1,68 @@
+@model OptiApp.ViewModel.OResultViewModel
+
+<div class="admin-header">
+    <h1>Admin Dashboard</h1>
+    <a class="add-optometrist-button" type="button" asp-action="CreateOptometristAccount">Add New Optometrist</a>
+</div>
+
+<div class="admin-stats">
+    <div class="stats-item">
+        <h2>Total Clients</h2>
+        <p>@Model.RegisteredClientCount.ToString()</p>
+    </div>
+    <div class="stats-item">
+        <h2>Total Optometrists</h2>
+        <p>@Model.RegisteredOptometristCount.ToString()</p>
+    </div>
+</div>
+
+<div class="admin-table">
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>FullName</th>
+            <th>DoB</th>
+            <th>Cellphone</th>
+            <th>Email</th>
+            <th>Address </th>
+            <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var optometrist in Model.Data!)
+        {
+            <tr>
+                <th>@optometrist.OptometristId.ToString()</th>
+                <th>@optometrist.FullName</th>
+                <th>@optometrist.DoB</th>
+                <th>@optometrist.Cellphone</th>
+                <th>@optometrist.Email</th>
+                <th>@optometrist.Address</th>
+                @if (optometrist.IsLinked)
+                {
+                    <th>Linked</th>
+                }
+                else
+                {
+                    <th>
+                        <a type="button" class="btn btn-info"  id="linked-btn" asp-action="LinkOptometristToWeb" asp-route-id="@optometrist.OptometristId">Link User</a>
+                    </th>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div class="pagination">
+        <button class="prev-page">Previous</button>
+        <span>Page @Model.CurrentPage of @Model.TotalPages</span>
+        <button class="next-page">Next</button>
+    </div>
+</div>
+
+<script>
+    let message = "@ViewBag.Success";
+    if (message) {
+        alert(message);
+    }
+</script>

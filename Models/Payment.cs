@@ -9,5 +9,6 @@ namespace OptiApp.Models
         public int BookingId { get; set; }
         public decimal AmountPaid { get; set; }
         public decimal Change { get; set; }
+        public bool IsPaid { get; set; }
     }
 }

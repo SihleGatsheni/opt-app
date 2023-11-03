@@ -9,7 +9,6 @@ using OptiApp.ViewModel;
 namespace OptiApp.Controllers;
 
 
-[Authorize]
 public class BookingController : Controller
 {
     private readonly ApplicationDbContext _context;
@@ -26,14 +25,20 @@ public class BookingController : Controller
     }
     public async Task<IActionResult> Booking()
     {
-        var user = await _context.Patients.SingleOrDefaultAsync(user => user.Email!.Equals(HttpContext.User.Identity!.Name));
-        var model = new AppointmentViewModel()
+        if (HttpContext.User.Identity!.IsAuthenticated)
         {
-        PatientId = user!.PatientId.ToString(),
-        Address = user!.Address,
-        Email = user.Email,
-        };
-        return View(model);
+            var user = await _context.Patients.SingleOrDefaultAsync(user =>
+                user.Email!.Equals(HttpContext.User.Identity!.Name));
+            var model = new AppointmentViewModel()
+            {
+                PatientId = user!.PatientId.ToString(),
+                Address = user!.Address,
+                Email = user.Email,
+            };
+            return View(model);
+        }
+
+        return RedirectToPage("/Account/Login", new { area = "Identity" });
     }
 
     [HttpGet("/api/slots/{date}")]

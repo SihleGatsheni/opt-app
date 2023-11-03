@@ -1,0 +1,81 @@
+@model OptiApp.ViewModel.ReportViewModel
+<div class="admin-header">
+    <h1>OPTOMETRIST DASHBOARD</h1>
+</div>
+<div class="admin-stats">
+    <div class="stats-item">
+        <h2>Total Clients</h2>
+        <p>@Model.Clients.ToString()</p>
+    </div>
+</div>
+<div>
+    <h1>Bookings</h1>
+    <table class="admin-table">
+        <thead>
+        <tr>
+            <th>BookingId</th>
+            <th>Date</th>
+            <th>Services</th>
+            <th>TotalAmount</th>
+            <th>Status</th>
+            <th>TimeSlot</th>
+            <th>Payment Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var booking in Model.Bookings!)
+        {
+            <tr>
+                <td>@booking.BookingId</td>
+                <td>@booking.Date</td>
+                <td>@booking.Services.Split(',')[0]...</td>
+                <td>@booking.TotalAmount</td>
+                <td>@booking.Status</td>
+                <td>@booking.TimeSlot</td>
+                @if (booking.IsPaid)
+                {
+                    <td style="color: green">Paid</td>
+                }
+                else
+                {
+                    <td style="color: red">Payment Pending</td>
+                }
+            </tr>
+        }
+        </tbody>
+    </table>
+    <div class="pagination" style="margin-left: 500px">
+        <button class="prev-page">Previous</button>
+        <span>Page of </span>
+        <button class="next-page">Next</button>
+    </div>
+</div>
+<div>
+<h1>Prescriptions</h1>
+    <table class="admin-table" style="margin-top: 20px">
+        <thead>
+        <tr>
+            <th>BookingId</th>
+            <th>Patient FullName</th>
+            <th>Email</th>
+            <th>Prescription Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var booking in Model.Prescriptions!)
+        {
+            <tr>
+                <td>@booking.BookingId</td>
+                <td>@booking.Patient!.Name  @booking.Patient.Surname</td>
+                <td>@booking.Patient.Email</td>
+                <td>@booking.PrescriptionNote</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+     <div class="pagination" style="margin-left: 500px">
+            <button class="prev-page">Previous</button>
+            <span>Page  of </span>
+            <button class="next-page">Next</button>
+        </div>
+</div>
