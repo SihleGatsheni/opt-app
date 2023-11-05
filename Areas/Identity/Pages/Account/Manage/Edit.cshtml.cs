@@ -28,8 +28,6 @@ public class Edit : PageModel
         if (profile is not null)
         {
             profile.Name = patient.Name;
-            profile.Surname = patient.Surname;
-            profile.Email = patient.Email;
             profile.Cellphone = patient.Cellphone;
             profile.Address = patient.Address;
             _context.Update(profile);
