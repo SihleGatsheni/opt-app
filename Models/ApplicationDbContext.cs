@@ -27,7 +27,7 @@ namespace OptiApp.Models
         public virtual DbSet<Prescription> Prescriptions { get; set; }
         public virtual DbSet<Service> Services { get; set; }
         public virtual DbSet<TimeSlot> TimeSlots { get; set; }
-        public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Slot> Slots { get; set; } 
         public virtual DbSet<Receptionist> Receptionists { get; set; }
 

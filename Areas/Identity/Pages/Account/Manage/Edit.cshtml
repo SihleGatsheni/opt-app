@@ -1,6 +1,84 @@
 @page
-@model OptiApp.Areas.Identity.Pages.Account.Manage.Edit
+@model Edit
 
-<div class="container">
-    Edit Profile
+<style>
+    .profile-container {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    form {
+        margin-top: 20px;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        font-weight: bold;
+    }
+    
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    
+    textarea.form-control {
+        resize: vertical;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+</style>
+
+<div class="profile-container">
+    <h2>Edit Your Profile</h2>
+    
+    <form method="post">
+        <div class="form-group">
+            <label for="Name">Name:</label>
+            <input type="text" id="Name" name="Name" class="form-control" value="@Model.ProfileViewModel.Name" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Surname">Surname:</label>
+            <input type="text" id="Surname" name="Surname" class="form-control" value="@Model.ProfileViewModel.Surname" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Email">Email:</label>
+            <input type="email" id="Email" name="Email" class="form-control" value="@Model.ProfileViewModel.Email" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Cellphone">Phone Number:</label>
+            <input type="tel" id="Cellphone" name="Cellphone" class="form-control" value="@Model.ProfileViewModel.Cellphone" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="Address">Address:</label>
+            <textarea id="Address" name="Address" class="form-control" rows="4" required>@Model.ProfileViewModel.Address</textarea>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Save Changes</button>
+    </form>
 </div>

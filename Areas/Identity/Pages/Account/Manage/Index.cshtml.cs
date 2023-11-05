@@ -18,12 +18,14 @@ namespace OptiApp.Areas.Identity.Pages.Account.Manage
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
         public IndexModel(
-            ApplicationDbContext context
-            )
+            ApplicationDbContext context,
+            UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
         
         [BindProperty]
@@ -35,10 +37,19 @@ namespace OptiApp.Areas.Identity.Pages.Account.Manage
             
             var patient =
                 await _context.Patients.SingleOrDefaultAsync(u => u.Email.Equals(HttpContext.User.Identity!.Name));
-
+            var user = await _userManager.FindByEmailAsync(HttpContext.User.Identity!.Name);
+            var userRole = await _userManager.GetRolesAsync(user);
             if (patient is null)
             {
-                return NotFound($"Unable to load user with ID '{HttpContext.User.Identity!.Name}'.");
+                if (userRole[0].Equals(Roles.Admin.ToString()))
+                {
+                    return RedirectToAction("Index","Admin");
+                }
+
+                if (userRole[0].Equals(Roles.Optometrist.ToString()))
+                {
+                    return RedirectToAction("Index","Opt");
+                }
             }
             var query = from booking in _context.Bookings
                 join timeslot in _context.TimeSlots on booking.TimeSlotId equals timeslot.Id
