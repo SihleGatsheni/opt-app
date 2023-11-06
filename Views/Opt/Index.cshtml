@@ -126,6 +126,13 @@
        .view-all-link:hover {
            color: #0056b3; /* Darker blue on hover */
        }
+       .report-image {
+           width: 100px; /* Adjust the width as needed */
+           height: auto; /* Maintain the aspect ratio */
+           margin-right: 10px; /* Add space between the image and text */
+           vertical-align: middle; /* Center the image vertically */
+           filter: brightness(1.2); /* Adjust the brightness for the report effect */
+       }
 </style>
 <div class="admin-header">
     <h1>OPTOMETRIST DASHBOARD</h1>
@@ -157,6 +164,10 @@
         <div class="stat">
             <h4>Monthly Revenue</h4>
             <p>R @Model.TotalMonthlyRevenue</p>
+            <a class="view-all-link" id="view-report-id" href="#">
+                <img src="images/chart-icon.png" alt="Comprehensive Reports" class="report-image">
+                Comprehensive Reports
+            </a>
         </div>
     </div>
 </div>

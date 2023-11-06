@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "z8nxEzuYSef76nu/K+MEdex25v0LETE0ub3gN6VmXa8=",
+  "Hash": "MSwtrUmBufh82ornGkTp5EmCdxKW4fElk84GH2xSx5c=",
   "Source": "OptiApp",
   "BasePath": "_content/OptiApp",
   "Mode": "Default",
@@ -1137,6 +1137,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot/images/bifocals.jpg"
+    },
+    {
+      "Identity": "/home/thedevstudiosa/Desktop/Project/OptiApp/wwwroot/images/chart-icon.png",
+      "SourceId": "OptiApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/thedevstudiosa/Desktop/Project/OptiApp/wwwroot/",
+      "BasePath": "_content/OptiApp",
+      "RelativePath": "images/chart-icon.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/images/chart-icon.png"
     },
     {
       "Identity": "/home/thedevstudiosa/Desktop/Project/OptiApp/wwwroot/images/chatbox-icon.svg",
