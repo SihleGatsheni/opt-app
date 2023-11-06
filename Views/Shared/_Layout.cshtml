@@ -16,7 +16,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            @if (!(User.Identity!.IsAuthenticated && (User.IsInRole(Roles.Admin.ToString())) || User.IsInRole(Roles.Optometrist.ToString())) )
+            @if (!(User.Identity!.IsAuthenticated && (User.IsInRole(Roles.Admin.ToString())) || User.IsInRole(Roles.Optometrist.ToString())))
             {
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OptiApp</a>
             }
@@ -27,13 +27,7 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     @{
-                        if (User.Identity!.IsAuthenticated && User.IsInRole(Roles.Admin.ToString()))
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Admin" asp-action="Index">ADMIN DASHBOARD</a>
-                            </li>
-                        }
-                        else if (User.Identity!.IsAuthenticated && User.IsInRole(Roles.Optometrist.ToString()))
+                        if (User.Identity!.IsAuthenticated && User.IsInRole(Roles.Optometrist.ToString()))
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Opt" asp-action="Index">OPTOMETRIST DASHBOARD</a>
@@ -63,7 +57,7 @@
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Booking" asp-action="Booking">Booking</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="AboutUs">About Us</a>
                             </li>
                         }
                     }

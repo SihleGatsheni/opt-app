@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OptiApp.Models;
 using OptiApp.Service;
 
 namespace OptiApp.Controllers;
 
+[Authorize]
 public class OptController : Controller
 {
     private readonly OptometristService _service;
@@ -14,7 +16,7 @@ public class OptController : Controller
     // GET
     public async Task<IActionResult> Index()
     {
-        var resultReports = await _service.GenerateReports(HttpContext);
+        var resultReports = await _service.GenerateReports();
         return View(resultReports);
     }
 }

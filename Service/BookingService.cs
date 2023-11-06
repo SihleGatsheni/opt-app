@@ -64,6 +64,7 @@ public class BookingService
         {
             BookingId = bookingModel.BookingId,
             AmountPaid = bookingModel.TotalAmount,
+            IsPaid = false,
             Change = 0
         };
         

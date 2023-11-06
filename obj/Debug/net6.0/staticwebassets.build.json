@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "EBVD8bXMh4T7k+xcfgSichCI6PTR6Up6Viyr4u0y+R0=",
+  "Hash": "z8nxEzuYSef76nu/K+MEdex25v0LETE0ub3gN6VmXa8=",
   "Source": "OptiApp",
   "BasePath": "_content/OptiApp",
   "Mode": "Default",
@@ -1069,6 +1069,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "/home/thedevstudiosa/Desktop/Project/OptiApp/obj/Debug/net6.0/scopedcss/projectbundle/OptiApp.bundle.scp.css"
+    },
+    {
+      "Identity": "/home/thedevstudiosa/Desktop/Project/OptiApp/wwwroot/css/dashboard.css",
+      "SourceId": "OptiApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "/home/thedevstudiosa/Desktop/Project/OptiApp/wwwroot/",
+      "BasePath": "_content/OptiApp",
+      "RelativePath": "css/dashboard.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot/css/dashboard.css"
     },
     {
       "Identity": "/home/thedevstudiosa/Desktop/Project/OptiApp/wwwroot/css/site.css",

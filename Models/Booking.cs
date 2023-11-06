@@ -7,7 +7,7 @@ namespace OptiApp.Models
     {
         public int BookingId { get; set; }
         public int PatientId { get; set; }
-        public string Date { get; set; } = null!;
+        public DateTime Date { get; set; }
         public string Slot { get; set; } = null!;
         public string Services { get; set; } = null!;
         public decimal TotalAmount { get; set; }

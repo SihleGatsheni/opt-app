@@ -83,6 +83,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQm9va2luZy9Cb29raW5nLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Home/AboutUs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9BYm91dFVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Home/BifocalsService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9CaWZvY2Fsc1NlcnZpY2UuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -101,10 +105,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Home/MultiFocalService.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9NdWx0aUZvY2FsU2VydmljZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3MvSG9tZS9Qcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/thedevstudiosa/Desktop/Project/OptiApp/Views/Home/SingleVisionService.cshtml]

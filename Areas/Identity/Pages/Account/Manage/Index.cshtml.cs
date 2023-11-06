@@ -60,7 +60,6 @@ namespace OptiApp.Areas.Identity.Pages.Account.Manage
                     Date = booking.Date,
                     TimeSlot = timeslot.StartTime + "-" + timeslot.EndTime,
                     Services = booking.Services,
-                    Status = booking.Status,
                     TotalAmount = booking.TotalAmount,
                 };
             var bookingHistory = await query.ToListAsync();

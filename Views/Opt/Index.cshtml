@@ -1,38 +1,189 @@
 @model OptiApp.ViewModel.ReportViewModel
+<style>
+.stats {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style the individual stat blocks */
+.stat {
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f2f2f2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+/* Style the "Total Clients" heading */
+.stat h4 {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Style the value associated with "Total Clients" */
+.stat p {
+    font-size: 1.5rem;
+    color: #007bff; /* Blue color for emphasis */
+    font-weight: bold;
+}
+
+/* Hover effect for the stat blocks */
+.stat:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+.card {
+            background-color: white;
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+     
+        .stats {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+       .table {
+           width: 100%;
+           border-collapse: collapse;
+           margin: 20px 0;
+       }
+       
+       /* Style the table header */
+       .table thead {
+           background-color: #007bff;
+           color: white;
+       }
+       
+       /* Style the table header cells */
+       .table th {
+           padding: 10px;
+           text-align: center;
+       }
+       
+       /* Style the table data rows */
+       .table tbody tr {
+           border-bottom: 1px solid #ddd;
+           transition: background-color 0.3s;
+       }
+       
+       /* Style the table data cells */
+       .table td {
+           padding: 10px;
+           text-align: center;
+       }
+       
+       /* Add alternating row colors for better readability */
+       .table tbody tr:nth-child(even) {
+           background-color: #f2f2f2;
+       }
+       
+       /* Style payment status cells */
+       .table td[style="color: green"] {
+           color: green;
+           font-weight: bold;
+       }
+       
+       .table td[style="color: red"] {
+           color: red;
+           font-weight: bold;
+       }
+       
+       /* Style the pagination buttons */
+       .pagination button {
+           background-color: #007bff;
+           color: white;
+           padding: 8px 16px;
+           border: none;
+           cursor: pointer;
+           margin: 5px;
+       }
+       
+       /* Hover effect for pagination buttons */
+       .pagination button:hover {
+           background-color: #0056b3;
+       }
+       .view-all-link {
+           display: block; /* Makes the link a block-level element */
+           color: #007bff; /* Blue color */
+           text-decoration: none; /* Remove underline by default */
+           font-weight: bold;
+           margin-top: 10px;
+           transition: color 0.3s;
+       }
+       
+       /* Hover effect for the anchor tag */
+       .view-all-link:hover {
+           color: #0056b3; /* Darker blue on hover */
+       }
+</style>
 <div class="admin-header">
     <h1>OPTOMETRIST DASHBOARD</h1>
 </div>
-<div class="admin-stats">
-    <div class="stats-item">
-        <h2>Total Clients</h2>
-        <p>@Model.Clients.ToString()</p>
+<div class="card" >
+    <h2 class="text-center" style="font-size: xx-large">Statistics</h2>
+    <div class="stats">
+        <div class="stat">
+            <h4>Total Clients</h4>
+            <p>@Model.TotalClient</p>
+            <a class="view-all-link" id="view-patients-id" href="#">View All Clients</a>
+        </div>
+        <div class="stat" >
+            <h4>Daily Bookings</h4>
+            <p>@Model.DailyBooking</p>
+            <p>R @Model.DailyBookings!.Sum(o => o.TotalAmount)</p>
+             <a  class="view-all-link" id="view-daily-id" href="#">View Daily</a>
+        </div>
+        <div class="stat">
+            <h4>Monthly Bookings</h4>
+            <p>@Model.MonthlyBooking</p>
+           <p>R @Model.TotalMonthlyRevenue</p>
+        </div>
+        <div class="stat">
+            <h4>All Bookings</h4>
+            <p>@Model.AllBookings</p>
+            <a  class="view-all-link" id="view-bookings-id" href="#">View All Bookings</a>
+        </div>
+        <div class="stat">
+            <h4>Monthly Revenue</h4>
+            <p>R @Model.TotalMonthlyRevenue</p>
+        </div>
     </div>
 </div>
 <div>
-    <h1>Bookings</h1>
-    <table class="admin-table">
-        <thead>
-        <tr>
-            <th>BookingId</th>
-            <th>Date</th>
-            <th>Services</th>
-            <th>TotalAmount</th>
-            <th>Status</th>
-            <th>TimeSlot</th>
-            <th>Payment Status</th>
+    <h1 class="text-center" id="data-table-header-id">DAILY BOOKINGS</h1>
+    <table class="table" id="data-table-id">
+        <thead >
+        <tr id="table-headers">
+            <th>BOOKINGID</th>
+            <th>DATE</th>
+            <th>SERVICES</th>
+            <th>TOTALAMOUNT</th>
+            <th>TIMESLOT</th>
+            <th>PAYMENTSTATUS</th>
+            <th>PRESCRIPTION</th>
         </tr>
         </thead>
         <tbody>
-        @foreach (var booking in Model.Bookings!)
+        @foreach (var booking in Model.DailyBookings!)
         {
             <tr>
                 <td>@booking.BookingId</td>
                 <td>@booking.Date</td>
                 <td>@booking.Services.Split(',')[0]...</td>
-                <td>@booking.TotalAmount</td>
-                <td>@booking.Status</td>
+                <td>R @booking.TotalAmount</td>
                 <td>@booking.TimeSlot</td>
-                @if (booking.IsPaid)
+                @if (booking.PaymentStatus)
                 {
                     <td style="color: green">Paid</td>
                 }
@@ -40,42 +191,103 @@
                 {
                     <td style="color: red">Payment Pending</td>
                 }
-            </tr>
-        }
-        </tbody>
-    </table>
-    <div class="pagination" style="margin-left: 500px">
-        <button class="prev-page">Previous</button>
-        <span>Page of </span>
-        <button class="next-page">Next</button>
-    </div>
-</div>
-<div>
-<h1>Prescriptions</h1>
-    <table class="admin-table" style="margin-top: 20px">
-        <thead>
-        <tr>
-            <th>BookingId</th>
-            <th>Patient FullName</th>
-            <th>Email</th>
-            <th>Prescription Note</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var booking in Model.Prescriptions!)
-        {
-            <tr>
-                <td>@booking.BookingId</td>
-                <td>@booking.Patient!.Name  @booking.Patient.Surname</td>
-                <td>@booking.Patient.Email</td>
                 <td>@booking.PrescriptionNote</td>
             </tr>
         }
         </tbody>
     </table>
-     <div class="pagination" style="margin-left: 500px">
-            <button class="prev-page">Previous</button>
-            <span>Page  of </span>
-            <button class="next-page">Next</button>
-        </div>
 </div>
+
+<script>
+const bookingData = @Html.Raw(Json.Serialize(Model.Bookings));
+const defaultTableData = @Html.Raw(Json.Serialize(Model.DailyBookings));
+const patientData = @Html.Raw(Json.Serialize(Model.Patients));
+const viewAllBookings = document.getElementById('view-bookings-id');
+const viewAllPatients = document.getElementById('view-patients-id');
+const viewDaily = document.getElementById('view-daily-id')
+
+viewAllBookings.addEventListener('click', function (){
+    showBookings()
+})
+viewAllPatients.addEventListener('click', function (){
+    showPatients()
+})
+
+viewDaily.addEventListener('click', function (){
+    showDefault() 
+})
+
+ function populateTable(data) {
+        const tableBody = document.querySelector('#data-table-id tbody');
+        const header = document.querySelector('#table-headers');
+        tableBody.innerHTML = ''; // Clear the existing table content
+        header.innerHTML = '';
+        if(data.length > 0) 
+        {
+            const bookingProperties = Object.keys(bookingData[0]);                            
+            bookingProperties.forEach(property => {
+                const th = document.createElement('th');
+                th.textContent = property.toUpperCase();
+                header.appendChild(th);                                             
+            })                                           
+        }
+        for (let i = 0; i < data.length; i++) {
+                   const row = document.createElement('tr');
+                   row.innerHTML = `
+                       <td>${data[i].bookingId}</td>
+                       <td>${data[i].date}</td>
+                       <td>${data[i].services}</td>
+                       <td>${data[i].totalAmount}</td>
+                       <td>${data[i].timeSlot}</td>
+                       <td style="color: ${data[i].isPaid ? 'green' : 'red'}">
+                           ${data[i].isPaid ? 'Paid' : 'Payment Pending'}
+                       </td>
+                       <td>${data[i].prescriptionNote}</td>
+                   `;
+                   tableBody.appendChild(row);
+               }
+    }
+
+    // Button click event handlers
+ function showPatients() {
+        // Replace the table with patient data (example data)
+              const table = document.querySelector('#data-table-id tbody');
+              // Clear the existing table content
+              document.getElementById('data-table-header-id').innerText = "ALL PATIENTS"
+              const header = document.querySelector('#table-headers');
+              table.innerHTML = '';
+              header.innerHTML ='';
+              if (patientData.length > 0) {
+                  const patientProperties = Object.keys(patientData[0]);
+                  patientProperties.forEach(property => {
+                  const th = document.createElement('th');
+                  th.textContent = property.toUpperCase();
+                  header.appendChild(th);
+              });
+              for (let i = 0; i < patientData.length; i++) {
+                  let row = document.createElement('tr');
+                  row.innerHTML = `
+                      <td>${patientData[i].patientId}</td>
+                      <td>${patientData[i].name}</td>
+                      <td>${patientData[i].surname}</td>
+                      <td>${patientData[i].cellphone}</td>
+                      <td>${patientData[i].address}</td>
+                      <td>${patientData[i].doB}</td>
+                      <td>${patientData[i].email}</td>
+                  `;
+                  table.appendChild(row);
+              }
+    }
+}
+ function showBookings() {
+      document.getElementById('data-table-header-id').innerText = "ALL BOOKINGS"
+        // Replace the table with booking data (example data)
+        populateTable(bookingData);
+    }
+
+ function showDefault() {
+       document.getElementById('data-table-header-id').innerText = "DAILY BOOKINGS"
+        // Restore the default table data (Daily Bookings)
+       populateTable(defaultTableData);
+    }
+</script>

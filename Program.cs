@@ -22,6 +22,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "Identity/Pages/Account/Login"; // Verify that this path is correct
         options.AccessDeniedPath = "Identity/Pages/Account/AccessDenied";
     });
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddAuthorization();
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
 builder.Services.AddRazorPages();
@@ -45,35 +46,8 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAuthentication();
-app.UseAuthorization();
-// app.Use(async (context, next) =>
-// {
-//     if (context.User.Identity!.IsAuthenticated)
-//     {
-//         var userManager = context.RequestServices.GetRequiredService<UserManager<IdentityUser>>();
-//         var user = await userManager.GetUserAsync(context.User);
-//
-//         if (user != null)
-//         {
-//             var roles = await userManager.GetRolesAsync(user);
-//
-//             if (roles.Contains(Roles.Admin.ToString()))
-//             {
-//                 var url = $"{context.Request.Scheme}://{context.Request.Host}/Admin";
-//                 context.Response.Redirect(url);
-//             }
-//
-//             if (roles.Contains(Roles.Optometrist.ToString()))
-//             {
-//                 var url = $"{context.Request.Scheme}://{context.Request.Host}/Opt/";
-//                 context.Response.Redirect(url);
-//             }
-//             context.Response.Redirect("/Home");
-//         }
-//     }
-//     await next();
-// });
 app.UseRouting();
+app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
